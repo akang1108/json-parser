@@ -1,0 +1,10 @@
+{
+  "name": "Jack",
+  "age": 25,
+  "address": {
+    "line1": "10 state st",
+    "zip": "60606"
+  },
+  "customer": true,
+  "hobbies": ["flying", "jumping", "running"]
+}

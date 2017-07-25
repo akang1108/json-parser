@@ -1,0 +1,40 @@
+group 'info.akang'
+version '1.0.0'
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'antlr'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+generateGrammarSource {
+    maxHeapSize = '64m'
+    arguments += ['-package', 'info.akang.parser.json', '-listener', '-visitor', '-long-messages']
+    outputDirectory = new File('build/generated-src/antlr/main/info/akang/parser/json'.toString())
+}
+
+idea {
+    module {
+        sourceDirs += file('build/generated-src/antlr/main')
+    }
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+dependencies {
+    antlr group: 'org.antlr', name: 'antlr4', version: '4.7'
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.11'
+
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+}
